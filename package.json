@@ -4,7 +4,7 @@
   "description": "bfx-challenge",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
   "license": "MIT",
@@ -12,5 +12,8 @@
     "grenache-nodejs-http": "^0.7.12",
     "grenache-nodejs-link": "^0.7.12",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1"
   }
 }
