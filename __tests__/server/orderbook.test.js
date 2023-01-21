@@ -52,4 +52,16 @@ describe('Orderbook:Server', () => {
     orderbook.matchOrders()
     expect(orderbook.orders.size).toBe(2)
   })
+
+  test('matchOrders() should match orders in FIFO order', () => {
+    const order1 = { id: 1, type: 'buy', price: 100, timestamp: new Date().getTime() - 10 }
+    const order2 = { id: 2, type: 'buy', price: 100, timestamp: new Date().getTime() - 20 }
+    const order3 = { id: 3, type: 'sell', price: 100, timestamp: new Date().getTime() - 15 }
+    orderbook.addOrder(order1)
+    orderbook.addOrder(order2)
+    orderbook.addOrder(order3)
+    orderbook.matchOrders()
+    expect(orderbook.orders.get(1)).toEqual(order1)
+    expect(orderbook.orders.get(3)).toBeUndefined()
+  })
 })

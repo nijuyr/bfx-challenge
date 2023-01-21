@@ -20,8 +20,8 @@ class Orderbook {
 
     //** matches orders stored in Map based on the order price. if matches then process the order and reduce */
     matchOrders() {
-        const buyOrders = this.getBuyOrders()
-        const sellOrders = this.getSellOrders()
+        const buyOrders = this.getBuyOrders().sort((a, b) => a.timestamp - b.timestamp)
+        const sellOrders = this.getSellOrders().sort((a, b) => a.timestamp - b.timestamp)
         const matchedOrders = buyOrders.reduce((matched, buyOrder) => {
             const sellOrder = sellOrders.find(order => order.price <= buyOrder.price)
             if (sellOrder) {
