@@ -29,13 +29,13 @@ const orderbook = new Orderbook()
 
 // order
 
-submitOrder(orderbook, {
+submitOrder(peer, orderbook, {
     type: 'buy',
     price: 1000,
     quantity: 1,
 })
 
-submitOrder(orderbook, {
+submitOrder(peer, orderbook, {
     type: 'sell',
     price: 900,
     quantity: 1,
