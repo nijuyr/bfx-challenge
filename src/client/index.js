@@ -4,6 +4,8 @@ const { PeerRPCClient }  = require('grenache-nodejs-http')
 const Link = require('grenache-nodejs-link')
 
 const { v4: uuidv4 } = require('uuid');
+const { REQUEST_TYPE } = require('../constants');
+const Orderbook = require('./orderbook');
 
 const link = new Link({
   grape: 'http://127.0.0.1:30001'
@@ -22,20 +24,6 @@ peer.init()
 // })
 
 /////////////////////////////
-
-class Orderbook {
-    constructor() {
-        this.orders = new Map()
-    }
-
-    addOrder(order) {
-        this.orders.set(order.id, order)
-    }
-
-    getOrders() {
-        return this.orders
-    }
-}
 
 // orderbook
 const orderbook = new Orderbook()
@@ -57,7 +45,7 @@ function submitOrder(orderData) {
 
     // will need to send out the order info
     peer.request('order_service', {
-        type: 'addOrder',
+        type: REQUEST_TYPE.ADD_ORDER,
         order,
     }, {
         timeout: 10000,
