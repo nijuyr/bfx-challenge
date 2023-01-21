@@ -18,3 +18,22 @@ peer.request('rpc_test', { msg: 'hello' }, { timeout: 10000 }, (err, data) => {
   }
   console.log(data) // { msg: 'world' }
 })
+
+/////////////////////////////
+
+class Orderbook {
+    constructor() {
+        this.orders = new Map()
+    }
+
+    addOrder(order) {
+
+    }
+
+    getOrders() {
+        return this.orders
+    }
+}
+
+// orderbook
+const orderbook = new Orderbook()

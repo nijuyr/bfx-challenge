@@ -18,11 +18,23 @@ const port = 1024 + Math.floor(Math.random() * 1000)
 const service = peer.transport('server')
 service.listen(port)
 
-setInterval(function () {
-  link.announce('rpc_test', service.port, {})
-}, 1000)
+/////////////////////////////
 
-service.on('request', (rid, key, payload, handler) => {
-  console.log(payload) //  { msg: 'hello' }
-  handler.reply(null, { msg: 'world' })
-})
+// orderbook
+class Orderbook {
+    constructor() {
+       
+    }
+
+    //** takes an order with buy/sell order type, and store in Map */
+    addOrder(order) {
+
+    }
+
+    //** matches orders stored in Map based on the order price. if matches then process the order and reduce */
+    matchOrders() {
+
+    }
+}
+
+const orderbook = new Orderbook()
