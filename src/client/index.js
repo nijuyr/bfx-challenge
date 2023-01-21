@@ -13,13 +13,13 @@ link.start()
 const peer = new PeerRPCClient(link, {})
 peer.init()
 
-peer.request('rpc_test', { msg: 'hello' }, { timeout: 10000 }, (err, data) => {
-  if (err) {
-    console.error(err)
-    process.exit(-1)
-  }
-  console.log(data) // { msg: 'world' }
-})
+// peer.request('rpc_test', { msg: 'hello' }, { timeout: 10000 }, (err, data) => {
+//   if (err) {
+//     console.error(err)
+//     process.exit(-1)
+//   }
+//   console.log(data) // { msg: 'world' }
+// })
 
 /////////////////////////////
 
@@ -55,4 +55,22 @@ function submitOrder(orderData) {
     orderbook.addOrder(order)
 
     // will need to send out the order info
+    peer.request('order_service', {
+        type: 'addOrder',
+        order,
+    }, {
+        timeout: 10000,
+    }, (err, data) => {
+        if (err) {
+            console.error('order error', err)
+            return
+        }
+        console.log('order added', data)
+    })
 }
+
+submitOrder({
+    type: 'buy',
+    price: 1000,
+    quantity: 1,
+})

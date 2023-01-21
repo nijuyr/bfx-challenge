@@ -18,6 +18,11 @@ const port = 1024 + Math.floor(Math.random() * 1000)
 const service = peer.transport('server')
 service.listen(port)
 
+
+setInterval(function () {
+    link.announce('order_service', service.port, {})
+  }, 1000)
+  
 /////////////////////////////
 
 // orderbook
@@ -38,3 +43,16 @@ class Orderbook {
 }
 
 const orderbook = new Orderbook()
+
+//! extract
+// RPC service part
+service.on('request', (rid, key, payload, handler) => {
+    switch (payload.type) {
+        case 'addOrder':
+            orderbook.addOrder(payload.order)
+            handler.reply(null, {
+                response: 'ok'
+            })
+            break
+    }
+})
