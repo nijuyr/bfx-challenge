@@ -3,8 +3,7 @@
 const { PeerRPCClient }  = require('grenache-nodejs-http')
 const Link = require('grenache-nodejs-link')
 
-const { v4: uuidv4 } = require('uuid')
-const { REQUEST_TYPE } = require('../constants')
+const { submitOrder } = require('./order')
 const Orderbook = require('./orderbook')
 
 const link = new Link({
@@ -29,42 +28,14 @@ peer.init()
 const orderbook = new Orderbook()
 
 // order
-function submitOrder(orderData) {
-    console.log('submitOrder')
-    // some validation here
-    
-    const order = {
-        id: uuidv4(),
-        type: orderData.type,
-        price: orderData.price,
-        quantity: orderData.quantity,
-    }
 
-    // add to orderbook
-    orderbook.addOrder(order)
-
-    // will need to send out the order info
-    peer.request('order_service', {
-        type: REQUEST_TYPE.ADD_ORDER,
-        order,
-    }, {
-        timeout: 10000,
-    }, (err, data) => {
-        if (err) {
-            console.error('order error', err)
-            return
-        }
-        console.log('order added', data)
-    })
-}
-
-submitOrder({
+submitOrder(orderbook, {
     type: 'buy',
     price: 1000,
     quantity: 1,
 })
 
-submitOrder({
+submitOrder(orderbook, {
     type: 'sell',
     price: 900,
     quantity: 1,
