@@ -3,9 +3,9 @@
 const { PeerRPCClient }  = require('grenache-nodejs-http')
 const Link = require('grenache-nodejs-link')
 
-const { v4: uuidv4 } = require('uuid');
-const { REQUEST_TYPE } = require('../constants');
-const Orderbook = require('./orderbook');
+const { v4: uuidv4 } = require('uuid')
+const { REQUEST_TYPE } = require('../constants')
+const Orderbook = require('./orderbook')
 
 const link = new Link({
   grape: 'http://127.0.0.1:30001'
