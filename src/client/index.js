@@ -42,6 +42,7 @@ const orderbook = new Orderbook()
 
 // order
 function submitOrder(orderData) {
+    console.log('submitOrder')
     // some validation here
     
     const order = {
@@ -72,5 +73,11 @@ function submitOrder(orderData) {
 submitOrder({
     type: 'buy',
     price: 1000,
+    quantity: 1,
+})
+
+submitOrder({
+    type: 'sell',
+    price: 900,
     quantity: 1,
 })
