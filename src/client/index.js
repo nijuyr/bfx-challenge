@@ -3,6 +3,8 @@
 const { PeerRPCClient }  = require('grenache-nodejs-http')
 const Link = require('grenache-nodejs-link')
 
+const { v4: uuidv4 } = require('uuid');
+
 const link = new Link({
   grape: 'http://127.0.0.1:30001'
 })
@@ -27,7 +29,7 @@ class Orderbook {
     }
 
     addOrder(order) {
-
+        this.orders.set(order.id, order)
     }
 
     getOrders() {
@@ -37,3 +39,20 @@ class Orderbook {
 
 // orderbook
 const orderbook = new Orderbook()
+
+// order
+function submitOrder(orderData) {
+    // some validation here
+    
+    const order = {
+        id: uuidv4(),
+        type: orderData.type,
+        price: orderData.price,
+        quantity: orderData.quantity,
+    }
+
+    // add to orderbook
+    orderbook.addOrder(order)
+
+    // will need to send out the order info
+}
